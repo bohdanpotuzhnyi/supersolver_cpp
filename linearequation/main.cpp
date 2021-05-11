@@ -1,5 +1,4 @@
 #include <iostream>
-#include <iomanip>
 #include <forward_list>
 
 inline int mod(int x, int n) {
@@ -12,14 +11,14 @@ int main() {
     std::cout << "Enter a, b, n for the equation ax=b(mod n)" << std::endl;
     std::cin >> a >> b >> n;
 
-    std::cout << a << "*x = " << b << "(mod " << n << ')' << std::endl;
+    std::cout << a << "x \\equiv " << b << " \\pmod{" << n << "} \\\\" << std::endl;
     int a_old = a, b_old = b;
     a = mod(a, n);
     b = mod(b, n);
     if (a_old != a || b_old != b) {
-        std::cout << a << "*x = " << b << "(mod " << n << ')' << std::endl;
+        std::cout << a << "x \\equiv " << b << " \\pmod{" << n << "} \\\\" << std::endl;
     }
-    std::cout << std::endl;
+    std::cout << "\\\\" << std::endl;
 
     int r_ = n, r_1 = a, r_2, q_;
     std::forward_list<int> r{r_1, r_}, q; //result of euclidean algorithm: r, q
@@ -37,7 +36,7 @@ int main() {
     int d = r_1;
 
     //gcd(a, n) = gcd(<a>, <n>) = <d>
-    std::cout << "d = gcd(a, n) = gcd(" << a << ", " << n << ") = " << d << std::endl;
+    std::cout << "d = \\gcd(a, n) = \\gcd(" << a << ", " << n << ") = " << d << "\\\\" << std::endl;
 
     r_iter = r.begin();
     r_1 = *r_iter++;
@@ -48,13 +47,12 @@ int main() {
         r_1 = r_;
         r_ = *r_iter++;
         q_ = *q_iter++;
-        //<r_2> = <r_1>*<q_> + <r_>
-        std::cout << r_2 << " = " << r_1 << '*' << q_ << " + " << r_ << std::endl;
+        std::cout << r_2 << " = " << r_1 << " \\cdot " << q_ << " + " << r_ << " \\\\" << std::endl;
     }
-    std::cout << std::endl;
+    std::cout << "\\\\" << std::endl;
 
     if (b%d == 0) {
-        std::cout << "b : d =>" << std::endl;
+        std::cout << R"(b \;\vdots\; d \Rightarrow \\)" << std::endl;
 
         //delete last element
         auto prev = q.before_begin(), it = ++q.begin();
@@ -87,59 +85,70 @@ int main() {
         }
         int a_1 = *u_iter; //a^-1 (mod n)
 
-        const int width = 5;
-        std::cout << std::left << std::setw(width) << "";
+        std::cout << "\\begin{array}{c|c";
+        for (auto i = q.begin(); i != q.end(); ++i) {
+            std::cout << "|c";
+        }
+        std::cout << "|c c}" << std::endl;
+        std::cout << "q_i &";
         for (int t : q) {
-            std::cout << std::left << std::setw(width) << t;
+            std::cout << " & " << t;
         }
-        std::cout << std::endl;
+        std::cout << " \\\\" << std::endl;
+        std::cout << "\\hline" << std::endl;
+        std::cout << "u_i";
         for (int t : u) {
-            std::cout << std::left << std::setw(width) << t;
+            std::cout << " & " << t;
         }
-        std::cout << " = a^-1(mod n)" << std::endl;
+        std::cout << " & = a^{-1} \\\\" << std::endl;
+        std::cout << "\\hline" << std::endl;
+        std::cout << "v_i";
         for (int t : v) {
-            std::cout << std::left << std::setw(width) << t;
+            std::cout << " & " << t;
         }
-        std::cout << std::endl << std::endl;
+        std::cout << " \\\\" << std::endl ;
+        std::cout << "\\hline" << std::endl;
+        std::cout << "\\end{array}" << std::endl;
+
+        std::cout << R"(\\ \\ \\)" << std::endl ;
 
         if (d == 1) {
-            std::cout << "d == 1 => there is 1 root" << std::endl;
-            std::cout << "x = a^-1*b(mod n)" << std::endl;
+            std::cout << "d = 1 \\implies \\text{уравнение имеет 1 корень} \\\\" << std::endl;
+            std::cout << R"(x \equiv a^{-1} \cdot b \pmod n \\)" << std::endl;
             int x = a_1*b;
-            std::cout << "x = " << a_1 << '*' << b << "(mod " << n << ")" << std::endl;
-            std::cout << "x = " << x << "(mod " << n << ")" << std::endl;
+            std::cout << "x \\equiv " << a_1 << " \\cdot " << b << " \\pmod{" << n << "} \\\\" << std::endl;
+            std::cout << "x \\equiv " << x << " \\pmod{" << n << "}" << std::endl;
             if (x < 0 || x >= n) {
                 x %= n;
                 if (x < 0)
                     x += n;
-                std::cout << "x = " << x << "(mod " << n << ")" << std::endl;
+                std::cout << "\\\\ " << "x \\equiv " << x << " \\pmod{" << n << "}" << std::endl;
             }
         }
         else {
-            std::cout << "d == " << d << " => there is " << d << " roots" << std::endl;
+            std::cout << "d = " << d << " \\implies \\text{всего корней " << d << "} \\\\" << std::endl;
             int a_ = a/d, b_ = b/d, n_ = n/d;
-            std::cout << "a' = a/d = " << a_ << std::endl;
-            std::cout << "b' = b/d = " << b_ << std::endl;
-            std::cout << "n' = n/d = " << n_ << std::endl;
-            std::cout << "a'*x' = b'(mod n')" << std::endl;
-            std::cout << "x' = a'^-1*b'(mod n')" << std::endl;
-            std::cout << "a'^-1 = a^-1 = " << a_1 << std::endl;
+            std::cout << "a' = \\frac{a}{d} = " << a_ << " \\\\" << std::endl;
+            std::cout << "b' = \\frac{b}{d} = " << b_ << " \\\\" << std::endl;
+            std::cout << "n' = \\frac{n}{d} = " << n_ << " \\\\" << std::endl;
+            std::cout << R"(a' \cdot x' \equiv b' \pmod{n'} \\)" << std::endl;
+            std::cout << R"(x' \equiv a'^{-1} \cdot b' \pmod{n'} \\)" << std::endl;
+            std::cout << "a'^{-1} = a^{-1} = " << a_1 << " \\\\" << std::endl;
             int x_ = a_1 * b_;
-            std::cout << "x' = " << a_1 << '*' << b_ << "(mod " << n_ << ")" << std::endl;
-            std::cout << "x' = " << x_ << "(mod " << n_ << ")" << std::endl;
+            std::cout << "x' \\equiv " << a_1 << " \\cdot " << b_ << " \\pmod{" << n_ << "} \\\\" << std::endl;
+            std::cout << "x' \\equiv " << x_ << " \\pmod{" << n_ << "} \\\\" << std::endl;
             int x_old = x_;
             x_ = mod(x_, n);
             if (x_old != x_) {
-                std::cout << "x' = " << x_ << "(mod " << n_ << ")" << std::endl;
+                std::cout << "x' \\equiv " << x_ << " \\pmod{" << n_ << "} \\\\" << std::endl;
             }
             for (int i = 0; i < d; ++i) {
-                std::cout << "x_" << i + 1 << " = " << x_ + i * n_ << "(mod " << n << ')' << std::endl;
+                std::cout << "\\\\ x_" << i + 1 << " \\equiv " << x_ + i * n_ << " \\pmod{" << n << "}" << std::endl;
             }
         }
     }
     else {
-        //<b> !: <d> => no roots
-        std::cout << b << " !: " << d << " => no roots" << std::endl;
+        std::cout << b << " \\centernot\\vdots " << d << " \\implies \\text{корней нет}" << std::endl;
     }
 
     return 0;
