@@ -1,4 +1,3 @@
-#include <iostream>
 #include <fstream>
 #include <forward_list>
 
@@ -6,13 +5,13 @@ inline int mod(int x, int n) {
     return (x < 0 ? x%n + n : x%n);
 }
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
-    int a, b, n;
-    std::cout << "Enter a, b, n for the equation ax=b(mod n)" << std::endl;
-    std::cin >> a >> b >> n;
+//Syntax: ./linearequation <a> <b> <n> <path for solution>
+int main(int argc, char *argv[]) {
+    int a = atoi(argv[1]);
+    int b = atoi(argv[2]);
+    int n = atoi(argv[3]);
 
-    std::ofstream file("solution.tex");
+    std::ofstream file(argv[4]);
 
     file << "\\documentclass{article}" << std::endl;
     file << "\\usepackage[T2A,T1]{fontenc}" << std::endl;
