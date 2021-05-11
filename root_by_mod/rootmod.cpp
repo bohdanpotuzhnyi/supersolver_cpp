@@ -220,8 +220,8 @@ int main(int argc, char *argv[]){
     if(res == 1){
         if(p % 4 == 3){
             int p1 = p/4;
-            file << "\\\\";
-            file << "p = 4*"<<p1<<" + 3\\\\";
+            file << "\\\\\\\\";
+            file << "p = 4*"<<p1<<" + 3\\\\\\\\";
             p1++;
             file << "x = \\pm "<< a << "^{"<< p1 << "}(\\mod "<< p << " )\\\\";
             int l = 0;
@@ -231,7 +231,7 @@ int main(int argc, char *argv[]){
             if(p % 8 == 5){
                 int p1 = p/8;
                 p1 = p1*2 + 1;
-                file << "\\\\p = 8*"<<p1<<" + 5\\\\";
+                file << "\\\\\\\\p = 8*"<<p1<<" + 5\\\\\\\\";
                 file << a << "^{" << p1 << "}" << "(\\mod" << p << ") = ";
                 int l = 0;
                 l = get_mod(a, p1, p, file);
