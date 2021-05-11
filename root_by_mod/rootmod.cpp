@@ -1,10 +1,7 @@
 //
 // Created by Bohdan Potuzhnyi on 5/11/2021.
 //
-#include "iostream"
-#include "string"
 #include "fstream"
-#include <cstdlib>
 using namespace std;
 
 void prefix(int s, int f,int arr[], ofstream &file){
@@ -204,14 +201,22 @@ int get_mod(int a,int pow, int mod, ofstream &file){
 }
 
 int main(int argc, char *argv[]){
+//int main(){
     //syntax <res> <a> <p> <path>
-    ofstream file;
-    file.open(argv[4], std::ios::app);
 
-    //path id res a p
     int res = atoi(argv[1]);
     int a = atoi(argv[2]);
     int p = atoi(argv[3]);
+
+    std::ofstream file(argv[4]);
+    /*
+    std::ofstream file;
+    file.open(argv[4], std::ios_base::app);
+    */
+    //path id res a p
+
+
+
     if(res == 1){
         if(p % 4 == 3){
             int p1 = p/4;
@@ -248,6 +253,7 @@ int main(int argc, char *argv[]){
     }else{
         file << "На жаль, у цього рівняння немає квадратичних лишків...";
     }
+    file << "\\end{document}";
     file.close();
     return 0;
 }
