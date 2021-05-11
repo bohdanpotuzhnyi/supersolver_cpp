@@ -90,7 +90,7 @@ int get_mod2(int a, int pow, int pow2, int mod, ofstream &file){
                 pow2 /= 2;
                 if (f > 0) prefix(k, f, arr, file);
                 file << a << "(\\cdot" << a1 << "^{2}" << ")^{" << pow2 << "}(\\mod" << mod << ") = ";
-                if (f > 0) prefix(k, f, arr);
+                if (f > 0) prefix(k, f, arr, file);
                 if ((4) % mod < mod / 2) {
                     file << a <<"(" << (a1 * a1) % mod << ")^{" << pow2 << "}(\\mod" << mod << ") = ";
                     a1 = (a1 * a1) % mod;
