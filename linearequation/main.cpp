@@ -11,6 +11,22 @@ int main() {
     std::cout << "Enter a, b, n for the equation ax=b(mod n)" << std::endl;
     std::cin >> a >> b >> n;
 
+    std::cout << "\\documentclass{article}" << std::endl;
+    std::cout << "\\usepackage[T2A,T1]{fontenc}" << std::endl;
+    std::cout << "\\usepackage[utf8]{inputenc}" << std::endl;
+    std::cout << "\\usepackage[english,russian,ukrainian]{babel}" << std::endl;
+    std::cout << "\\usepackage[a6paper]{geometry}" << std::endl;
+    std::cout << "\\usepackage{lmodern}" << std::endl;
+    std::cout << "\\usepackage{textcomp}" << std::endl;
+    std::cout << "\\usepackage{lastpage}" << std::endl;
+    std::cout << "\\usepackage{amsmath}" << std::endl;
+    std::cout << "\\usepackage{amsfonts}" << std::endl;
+    std::cout << "\\usepackage{amssymb}" << std::endl;
+    std::cout << "\\usepackage{centernot}" << std::endl;
+    std::cout << "\\pagenumbering{gobble}" << std::endl;
+    std::cout << "\\begin{document}" << std::endl;
+    std::cout << "\\begin{math}" << std::endl;
+
     std::cout << a << "x \\equiv " << b << " \\pmod{" << n << "} \\\\" << std::endl;
     int a_old = a, b_old = b;
     a = mod(a, n);
@@ -150,6 +166,9 @@ int main() {
     else {
         std::cout << b << " \\centernot\\vdots " << d << " \\implies \\text{корней нет}" << std::endl;
     }
+
+    std::cout << "\\end{math}" << std::endl;
+    std::cout << "\\end{document}" << std::endl;
 
     return 0;
 }
