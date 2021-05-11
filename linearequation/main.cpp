@@ -161,7 +161,7 @@ int main(int argc, char *argv[]) {
                 file << "x' \\equiv " << x_ << " \\pmod{" << n_ << "} \\\\" << std::endl;
             }
             for (int i = 0; i < d; ++i) {
-                file << "\\\\ x_" << i + 1 << " \\equiv " << x_ + i * n_ << " \\pmod{" << n << "}" << std::endl;
+                file << "\\\\ x_{" << i + 1 << "} \\equiv " << x_ + i * n_ << " \\pmod{" << n << "}" << std::endl;
             }
         }
     }
