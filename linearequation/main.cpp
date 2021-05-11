@@ -131,7 +131,7 @@ int main(int argc, char *argv[]) {
         file << R"(\\ \\ \\)" << std::endl ;
 
         if (d == 1) {
-            file << "d = 1 \\implies \\text{уравнение имеет 1 корень} \\\\" << std::endl;
+            file << "d = 1 \\implies \\text{рівняння має 1 корінь} \\\\" << std::endl;
             file << R"(x \equiv a^{-1} \cdot b \pmod n \\)" << std::endl;
             int x = a_1*b;
             file << "x \\equiv " << a_1 << " \\cdot " << b << " \\pmod{" << n << "} \\\\" << std::endl;
@@ -144,7 +144,7 @@ int main(int argc, char *argv[]) {
             }
         }
         else {
-            file << "d = " << d << " \\implies \\text{всего корней " << d << "} \\\\" << std::endl;
+            file << "d = " << d << " \\implies \\text{всього коренів " << d << "} \\\\" << std::endl;
             int a_ = a/d, b_ = b/d, n_ = n/d;
             file << "a' = \\frac{a}{d} = " << a_ << " \\\\" << std::endl;
             file << "b' = \\frac{b}{d} = " << b_ << " \\\\" << std::endl;
@@ -166,7 +166,7 @@ int main(int argc, char *argv[]) {
         }
     }
     else {
-        file << b << " \\centernot\\vdots " << d << " \\implies \\text{корней нет}" << std::endl;
+        file << b << " \\centernot\\vdots " << d << " \\implies \\text{коренів немає}" << std::endl;
     }
 
     file << "\\end{math}" << std::endl;
