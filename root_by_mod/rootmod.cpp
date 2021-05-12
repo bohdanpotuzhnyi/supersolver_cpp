@@ -230,8 +230,8 @@ int main(int argc, char *argv[]){
         }else{
             if(p % 8 == 5){
                 int p1 = p/8;
-                p1 = p1*2 + 1;
                 file << "\\\\\\\\p = 8*"<<p1<<" + 5\\\\\\\\";
+                p1 = p1*2 + 1;
                 file << a << "^{" << p1 << "}" << "(\\mod" << p << ") = ";
                 int l = 0;
                 l = get_mod(a, p1, p, file);
