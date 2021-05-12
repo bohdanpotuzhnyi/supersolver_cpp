@@ -5,3 +5,4 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(linearequation linearequation/main.cpp)
 add_executable(rootmod root_by_mod/rootmod.cpp)
+add_executable(poleq poleq/poleq.cpp)
