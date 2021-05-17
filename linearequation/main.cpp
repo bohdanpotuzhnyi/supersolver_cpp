@@ -156,7 +156,7 @@ int main(int argc, char *argv[]) {
             file << "x' \\equiv " << a_1 << " \\cdot " << b_ << " \\pmod{" << n_ << "} \\\\" << std::endl;
             file << "x' \\equiv " << x_ << " \\pmod{" << n_ << "} \\\\" << std::endl;
             int x_old = x_;
-            x_ = mod(x_, n);
+            x_ = mod(x_, n_);
             if (x_old != x_) {
                 file << "x' \\equiv " << x_ << " \\pmod{" << n_ << "} \\\\" << std::endl;
             }
