@@ -1,61 +1,113 @@
 //
-// Created by Anna Kuzmenko and Bohdan Potuzhnyi
+// Created by Anna Kuzmenko
 //
 #include <fstream>
 #include <string>
 #include <vector>
 using namespace std;
 
-vector <string> first, second;
+vector <string> first, second, st;
 int n;
 
-void markov(string x, ofstream &file)
+string del_e(vector<char> x)
 {
     string res;
-    file << x;
-    for (int i = 0; i < n; ++i)
+    res.resize(x.size());
+    int j = 0;
+    for (int i = 0; i < x.size(); ++i)
     {
-        for (int j = 0; j < x.size() - first[i].size() + 1; ++j)
+        if (x[i] != '_')
         {
-            bool p = false;
-            if (x[j] == first[i][0])
-            {
-                p = true;
-                for (int k = j + 1, l=1; l < first[i].size(); ++k,++l)
-                {
-                    if (x[k] != first[i][l])
-                    {
-                        p = false;
-                        break;
-                    }
-                }
-            }
-            if (p == true)
-            {
-                vector <char> x1;
-                for (int k = 0; k < j; ++k) x1.push_back(x[k]);
-                for (int k = j, l=0; l< second[i].size(); ++k,++l)
-                {
-                    x1.push_back(second[i][l]);
-                }
-                for (int k = j + first[i].size() ; k < x.size(); ++k)
-                {
-                    x1.push_back(x[k]);
-                }
-                string x2;
-                x2.resize(x1.size());
-                for(int k=0;k<x1.size();++k)
-                {
-                    x2[k] = x1[k];
-                }
-                x = x2;
-                file << " \\vdash " << x;
-            }
-            if (second[i][0] == '*') break;
+            res[j] = x[i];
+            ++j;
         }
     }
+    res.resize(j);
+    if (j==0) {res[0] = '_'; res.resize(1);}
+    return res;
+}
+bool check(string x)
+{
+    bool f = true;
+    for (int i = 0; i < st.size(); ++i)
+    {
+        if (st[i] == x){
+            f =  false;
+            break;
+        }
+    }
+    st.push_back(x);
+    return f;
 }
 
+void Markov(string x, ofstream &file)
+{
+    st.push_back(x);
+    bool cycle = 0;
+    while (1)
+    {
+        bool c = false;
+        for (int i = 0; i < n; ++i)
+        {
+            for (int j = 0; j < x.size() - first[i].size() + 1; ++j)
+            {
+                bool p = false;
+                if (x[j] == first[i][0])
+                {
+                    p = true;
+                    for (int k = j + 1, l = 1; l < first[i].size(); ++k, ++l)
+                    {
+                        if (x[k] != first[i][l])
+                        {
+                            p = false;
+                            break;
+                        }
+                    }
+                }
+                if (p == true)
+                {
+                    vector <char> x1;
+                    for (int k = 0; k < j; ++k) {
+                        x1.push_back(x[k]);
+                        file << x[k];
+                    }
+                    file << "\\underline{" << first[i] << "}";
+                    for (int k = j, l = 0; l < second[i].size(); ++k, ++l)
+                    {
+                        x1.push_back(second[i][l]);
+
+                    }
+                    for (int k = j + first[i].size(); k < x.size(); ++k)
+                    {
+                        x1.push_back(x[k]);
+                        file << x[k];
+                    }
+                    string x2;
+                    x2 = del_e(x1);
+                    x = x2;
+                    file << "\\vdash ";
+                    //file << endl << x << endl;
+                    if (!check(x))
+                    {
+                        file << x << "\\\\$ cycle $";
+                        cycle = 1;
+                    }
+                    c = 1;
+                    if (second[i][0] == '*') {
+                        cycle = 1;
+                    }
+                    break;
+                }
+            }
+            if (c)break;
+            if (cycle) break;
+        }
+        if (!c) break;
+        if (cycle) break;
+    }
+    if (x[0]=='_') file << "\\varepsilon $";
+    else file << x;
+}
 
 int main(int argc, char* argv[])
 {
@@ -100,7 +152,7 @@ int main(int argc, char* argv[])
     //cin >> x;
     x = argv[argc-2];
     //file << x;
-    markov(x, file);
+    Markov(x, file);
     file << "$\\end{document}";
     file.close();
     return 0;
